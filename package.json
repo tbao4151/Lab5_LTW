@@ -1,0 +1,12 @@
+{
+  "name": "lab5-web-programming",
+  "private": true,
+  "scripts": {
+    "server": "json-server database.json --port 3000",
+    "web": "http-server . -p 5500 -c-1"
+  },
+  "devDependencies": {
+    "json-server": "^1.0.0-beta.3",
+    "http-server": "^14.1.1"
+  }
+}
