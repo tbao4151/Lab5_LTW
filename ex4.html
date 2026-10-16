@@ -1,1 +1,65 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Exercise 4 - Shopping cart - Lab 5</title><link rel="stylesheet" href="style.css"></head><body><main><p><a href="index.html">← Lab 5 - Trang chủ</a></p><h1>Exercise 4 - Shopping cart</h1><section class="card"><h2>Product List</h2><div class="table-scroll"><table><thead><tr><th>ID</th><th>Name</th><th>Price</th><th>Description</th><th>Action</th></tr></thead><tbody id="products"></tbody></table></div></section><section class="card"><h2>Shopping Cart</h2><div class="table-scroll"><table><thead><tr><th>ID</th><th>Name</th><th>Price</th><th>Quantity</th><th>Total Price</th><th>Action</th></tr></thead><tbody id="cart"></tbody></table></div><p>Total Number of Products: <b id="total-quantity">0</b></p><p>Total Price Overall: <b id="total-price">$0.00</b></p></section></main><script>const products=[{id:1,name:'Product 1',price:10,description:'Description 1'},{id:2,name:'Product 2',price:15,description:'Description 2'},{id:3,name:'Product 3',price:19.5,description:'Description 3'}],cart=new Map(),money=n=>'$'+n.toFixed(2);const productBody=document.querySelector('#products'),cartBody=document.querySelector('#cart');for(const p of products){const tr=document.createElement('tr');tr.innerHTML=`<td>${p.id}</td><td>${p.name}</td><td>${money(p.price)}</td><td>${p.description}</td>`;const td=document.createElement('td'),button=document.createElement('button');button.textContent='Add to cart';button.onclick=()=>{cart.set(p.id,(cart.get(p.id)||0)+1);render()};td.append(button);tr.append(td);productBody.append(tr)}function render(){cartBody.replaceChildren();let count=0,total=0;for(const [id,qty]of cart){const p=products.find(p=>p.id===id);count+=qty;total+=p.price*qty;const tr=document.createElement('tr');tr.innerHTML=`<td>${p.id}</td><td>${p.name}</td><td>${money(p.price)}</td>`;const q=document.createElement('td'),input=document.createElement('input');input.type='number';input.min='1';input.step='1';input.value=qty;input.style.width='85px';input.setAttribute('aria-label','Quantity for '+p.name);input.oninput=()=>{const n=Number(input.value);if(Number.isSafeInteger(n)&&n>=1&&n<=9999)cart.set(id,n);else input.value=qty;render()};q.append(input);tr.append(q);const subtotal=document.createElement('td');subtotal.textContent=money(qty*p.price);tr.append(subtotal);const action=document.createElement('td'),b=document.createElement('button');b.textContent='Remove';b.className='danger small';b.onclick=()=>{cart.delete(id);render()};action.append(b);tr.append(action);cartBody.append(tr)}if(!cart.size)cartBody.innerHTML='<tr><td colspan="6">Cart is empty</td></tr>';document.querySelector('#total-quantity').textContent=count;document.querySelector('#total-price').textContent=money(total)}render();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercise 4 — Small Business</title>
+  <link rel="stylesheet" href="vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="ex4.html">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-navbar-toggle aria-label="Toggle navigation" aria-controls="business-nav" aria-expanded="false">
+        <span class="navbar-toggler-lines" aria-hidden="true">&#9776;</span>
+      </button>
+      <div class="collapse navbar-collapse" id="business-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a class="nav-link" href="ex4.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="container pt-4">
+    <section class="row align-items-center business-hero" id="about" aria-label="Business introduction">
+      <div class="col-lg-7 mb-3 mb-lg-0">
+        <div class="sample-image wide-business rounded" role="img" aria-label="Gray placeholder 900 by 400">900 x 400</div>
+      </div>
+      <div class="col-lg-5">
+        <h1>Business Name or Tagline</h1>
+        <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
+        <a class="btn btn-primary" href="#services">Call to Action!</a>
+      </div>
+    </section>
+    <section class="my-4 business-callout" aria-label="Announcement">
+      This call to action card is a great place to showcase some important information or display a clever tagline!
+    </section>
+    <section class="row" id="services" aria-label="Services">
+      <div class="col-md-4 mb-4">
+        <article class="card business-card">
+          <div class="card-body"><h2 class="card-title h4">Card One</h2><p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima assumenda.</p></div>
+          <div class="card-footer"><a class="btn btn-primary btn-sm" href="#contact">More Info</a></div>
+        </article>
+      </div>
+      <div class="col-md-4 mb-4">
+        <article class="card business-card">
+          <div class="card-body"><h2 class="card-title h4">Card Two</h2><p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p></div>
+          <div class="card-footer"><a class="btn btn-primary btn-sm" href="#contact">More Info</a></div>
+        </article>
+      </div>
+      <div class="col-md-4 mb-4">
+        <article class="card business-card">
+          <div class="card-body"><h2 class="card-title h4">Card Three</h2><p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p></div>
+          <div class="card-footer"><a class="btn btn-primary btn-sm" href="#contact">More Info</a></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" id="contact">Copyright &copy; Your Website 2017</footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,1 +1,76 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Exercise 5 - Product search - Lab 5</title><link rel="stylesheet" href="style.css"></head><body><main><p><a href="index.html">← Lab 5 - Trang chủ</a></p><h1>Exercise 5 - Product search</h1><section class="card"><label class="field">Search products<input id="searchBox" placeholder="e.g. thiet ke, iPhone, 900" autocomplete="off"></label><p id="count" class="muted"></p><div class="table-scroll"><table><thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Description</th></tr></thead><tbody id="productTable"></tbody></table></div><p id="noMatchMessage" class="error"></p></section></main><script>const products=[{name:'iPhone 15 Pro Max 256GB | Chính hãng VN/A',price:'32,990,000',description:'iPhone 15 Pro Max thiết kế mới với chất liệu titan chuẩn hàng không vũ trụ bền bỉ, trọng lượng nhẹ, đồng thời trang bị nút Action và cổng sạc USB-C tiêu chuẩn giúp nâng cao tốc độ sạc.',image:'https://cdn2.cellphones.com.vn/x/media/catalog/product/r/g/rgrg.jpg'},{name:'Apple Watch Series 9 41mm (4G) viền nhôm dây cao su',price:'12,790,000',description:'Apple Watch Series 9 41mm 4G sở hữu khả năng xử lý mượt mà nhờ được trang bị chip S9 SiP mạnh mẽ cùng chất lượng hiển thị sắc nét trên màn hình 1.6 inch.',image:'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/a/p/apple_gps_1_.png'},{name:'Ốp lưng iPhone 15 Pro Max Silicone hỗ trợ sạc Magsafe',price:'1,272,000',description:'Ốp lưng iPhone 15 Pro Max Silicone hỗ trợ sạc Magsafe có kiểu dáng ốp khít với nhiều màu sắc cho người dùng lựa chọn.',image:'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/o/p/op-lung-magsafe-iphone-15-pro-max-silicone.png'},{name:'iPad Air M2',price:'16,490,000',description:'Máy tính bảng hiệu năng mạnh, thiết kế mỏng nhẹ.',image:''},{name:'iMac M3',price:'34,990,000',description:'Máy tính để bàn màn hình Retina, thiết kế hiện đại.',image:''}],norm=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase(),table=document.querySelector('#productTable');function render(keyword=''){table.replaceChildren();const key=norm(keyword.trim()),matched=products.filter(p=>norm([p.name,p.price,p.description].join(' ')).includes(key)||norm(p.price.replace(/,/g,'')).includes(key.replace(/,/g,'')));for(const p of matched){const tr=document.createElement('tr');let td=document.createElement('td');if(p.image){const img=document.createElement('img');img.src=p.image;img.alt=p.name;img.style='width:60px;max-height:65px;object-fit:contain';td.append(img)}else td.textContent='—';tr.append(td);for(const v of [p.name,p.price,p.description]){td=document.createElement('td');td.textContent=v;tr.append(td)}table.append(tr)}document.querySelector('#count').textContent=matched.length+' matching product(s)';document.querySelector('#noMatchMessage').textContent=matched.length?'':'No matching products found.'}document.querySelector('#searchBox').addEventListener('input',e=>render(e.target.value));render();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercise 5 — Shop Homepage</title>
+  <link rel="stylesheet" href="vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="ex5.html">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-navbar-toggle aria-label="Toggle navigation" aria-controls="shop-nav" aria-expanded="false">
+        <span class="navbar-toggler-lines" aria-hidden="true">&#9776;</span>
+      </button>
+      <div class="collapse navbar-collapse" id="shop-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a class="nav-link" href="ex5.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#shop">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#products">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="container pt-4" id="shop">
+    <div class="row">
+      <aside class="col-lg-3 mb-4">
+        <h1 class="shop-title mb-3">Shop Name</h1>
+        <div class="list-group" aria-label="Shop categories">
+          <a href="#products" class="list-group-item list-group-item-action">Category 1</a>
+          <a href="#products" class="list-group-item list-group-item-action">Category 2</a>
+          <a href="#products" class="list-group-item list-group-item-action">Category 3</a>
+        </div>
+      </aside>
+      <div class="col-lg-9">
+        <section class="carousel-wrap mb-4" data-carousel tabindex="0" aria-roledescription="carousel" aria-label="Featured shop items">
+          <div class="carousel-slide active" aria-hidden="false"><div class="sample-image wide-shop" role="img" aria-label="Featured image one placeholder">900 x 350</div></div>
+          <div class="carousel-slide" aria-hidden="true"><div class="sample-image wide-shop" role="img" aria-label="Featured image two placeholder">900 x 350</div></div>
+          <div class="carousel-slide" aria-hidden="true"><div class="sample-image wide-shop" role="img" aria-label="Featured image three placeholder">900 x 350</div></div>
+          <button class="carousel-nav prev" data-slide-direction="prev" type="button" aria-label="Previous slide">&#8249;</button>
+          <button class="carousel-nav next" data-slide-direction="next" type="button" aria-label="Next slide">&#8250;</button>
+          <div class="carousel-indicators-simple" aria-label="Choose featured slide">
+            <button type="button" data-slide-to="0" aria-label="Show slide 1" class="active"></button>
+            <button type="button" data-slide-to="1" aria-label="Show slide 2"></button>
+            <button type="button" data-slide-to="2" aria-label="Show slide 3"></button>
+          </div>
+        </section>
+        <section class="row" id="products" aria-label="Products">
+          <div class="col-sm-6 col-md-4 mb-4">
+            <article class="card h-100"><div class="sample-image product-img" role="img" aria-label="Product image 700 by 400">700 x 400</div><div class="card-body"><h2 class="card-title h5 mb-1"><a href="#products">Item One</a></h2><p class="product-price mb-1">$24.99</p><p class="card-text product-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p></div><div class="card-footer"><span class="product-rating" aria-label="4 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></article>
+          </div>
+          <div class="col-sm-6 col-md-4 mb-4">
+            <article class="card h-100"><div class="sample-image product-img" role="img" aria-label="Product image 700 by 400">700 x 400</div><div class="card-body"><h2 class="card-title h5 mb-1"><a href="#products">Item Two</a></h2><p class="product-price mb-1">$24.99</p><p class="card-text product-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p></div><div class="card-footer"><span class="product-rating" aria-label="4 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></article>
+          </div>
+          <div class="col-sm-6 col-md-4 mb-4">
+            <article class="card h-100"><div class="sample-image product-img" role="img" aria-label="Product image 700 by 400">700 x 400</div><div class="card-body"><h2 class="card-title h5 mb-1"><a href="#products">Item Three</a></h2><p class="product-price mb-1">$24.99</p><p class="card-text product-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p></div><div class="card-footer"><span class="product-rating" aria-label="4 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></article>
+          </div>
+          <div class="col-sm-6 col-md-4 mb-4">
+            <article class="card h-100"><div class="sample-image product-img" role="img" aria-label="Product image 700 by 400">700 x 400</div><div class="card-body"><h2 class="card-title h5 mb-1"><a href="#products">Item Four</a></h2><p class="product-price mb-1">$24.99</p><p class="card-text product-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p></div><div class="card-footer"><span class="product-rating" aria-label="4 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></article>
+          </div>
+          <div class="col-sm-6 col-md-4 mb-4">
+            <article class="card h-100"><div class="sample-image product-img" role="img" aria-label="Product image 700 by 400">700 x 400</div><div class="card-body"><h2 class="card-title h5 mb-1"><a href="#products">Item Five</a></h2><p class="product-price mb-1">$24.99</p><p class="card-text product-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor.</p></div><div class="card-footer"><span class="product-rating" aria-label="4 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></article>
+          </div>
+          <div class="col-sm-6 col-md-4 mb-4">
+            <article class="card h-100"><div class="sample-image product-img" role="img" aria-label="Product image 700 by 400">700 x 400</div><div class="card-body"><h2 class="card-title h5 mb-1"><a href="#products">Item Six</a></h2><p class="product-price mb-1">$24.99</p><p class="card-text product-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p></div><div class="card-footer"><span class="product-rating" aria-label="4 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div></article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer" id="contact">Copyright &copy; Your Website 2017</footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

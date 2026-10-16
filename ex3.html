@@ -1,1 +1,130 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Exercise 3 - Random color picker - Lab 5</title><link rel="stylesheet" href="style.css"></head><body><main><p><a href="index.html">← Lab 5 - Trang chủ</a></p><h1>Exercise 3 - Random color picker</h1><section class="card" id="colorPanel"><p>Hover to preview a color. Click to select permanently.</p><div id="palette" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:8px"></div><p>Selected color: <strong id="selected">None</strong></p><p id="toast" role="status" style="opacity:0;transition:opacity .35s"></p></section></main><script>const palette=document.querySelector('#palette'),panel=document.querySelector('#colorPanel'),toast=document.querySelector('#toast'),selected=document.querySelector('#selected');let chosen='white',timeout;const color=()=>`#${Math.floor(Math.random()*16777216).toString(16).padStart(6,'0')}`;for(let i=0;i<48;i++){const c=color(),cell=document.createElement('button');cell.style=`background:${c};height:56px;border:2px solid #fff`;cell.title=c;cell.setAttribute('aria-label','Select '+c);cell.addEventListener('mouseenter',()=>{panel.style.background=c});cell.addEventListener('mouseleave',()=>{panel.style.background=chosen});cell.addEventListener('click',()=>{chosen=c;panel.style.background=c;selected.textContent=c;toast.textContent='Color selected: '+c;toast.style.opacity='1';clearTimeout(timeout);timeout=setTimeout(()=>toast.style.opacity='0',2600)});palette.append(cell)}palette.addEventListener('mouseleave',()=>panel.style.background=chosen);</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercise 3 — Registration form validation</title>
+  <link rel="stylesheet" href="vendor/bootstrap.min.css">
+</head>
+<body>
+  <main class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <form id="registration-form" class="border rounded p-4" novalidate>
+          <div class="form-row">
+            <div class="form-group col-12 col-sm-6">
+              <label for="firstName">First name</label>
+              <input class="form-control" id="firstName" name="firstName" placeholder="First name" autocomplete="given-name" required>
+              <div class="invalid-feedback">First name is required.</div>
+            </div>
+            <div class="form-group col-12 col-sm-6">
+              <label for="lastName">Last name</label>
+              <input class="form-control" id="lastName" name="lastName" placeholder="Last name" autocomplete="family-name" required>
+              <div class="invalid-feedback">Last name is required.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" id="username" name="username" placeholder="Username" autocomplete="username" required>
+            <div class="invalid-feedback" id="username-feedback">Please enter your username.</div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" id="password" name="password" type="password" placeholder="Password" autocomplete="new-password" required>
+            <div class="invalid-feedback" id="password-feedback">Password is not valid.</div>
+          </div>
+          <fieldset class="form-group">
+            <legend class="col-form-label pt-0">Gender</legend>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="male" class="custom-control-input" name="gender" value="male">
+              <label class="custom-control-label" for="male">Male</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="female" class="custom-control-input" name="gender" value="female">
+              <label class="custom-control-label" for="female">Female</label>
+            </div>
+          </fieldset>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select class="custom-select" id="country" name="country" required>
+              <option value="Vietnam" selected>Vietnam</option>
+              <option value="Thailand">Thailand</option>
+              <option value="Singapore">Singapore</option>
+              <option value="Japan">Japan</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="invalid-feedback">Please select a country.</div>
+          </div>
+          <div class="form-group form-check">
+            <input class="form-check-input" type="checkbox" id="remember" name="remember" checked>
+            <label class="form-check-label" for="remember">Remember me</label>
+          </div>
+          <div id="form-result" class="alert alert-success d-none" role="status" aria-live="polite">Form validation successful!</div>
+          <div class="form-row">
+            <div class="col-auto"><button class="btn btn-success px-5" type="submit">Login</button></div>
+            <div class="col-auto"><button class="btn btn-outline-success px-4" type="reset">Reset</button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script>
+    (function () {
+      'use strict';
+      const form = document.getElementById('registration-form');
+      const output = document.getElementById('form-result');
+      const fieldIds = ['firstName', 'lastName', 'username', 'password', 'country'];
+      let wasSubmitted = false;
+
+      function validateField(id) {
+        const field = document.getElementById(id);
+        const text = field.value.trim();
+        let valid = Boolean(text);
+        if (id === 'username') {
+          valid = text.length >= 3;
+          document.getElementById('username-feedback').textContent = !text ? 'Please enter your username.' : 'Username must have at least 3 characters.';
+        }
+        if (id === 'password') {
+          valid = text.length >= 8;
+          document.getElementById('password-feedback').textContent = 'Password is not valid. Enter at least 8 characters.';
+        }
+        field.classList.toggle('is-valid', valid);
+        field.classList.toggle('is-invalid', !valid);
+        return valid;
+      }
+
+      function validateAll() {
+        let valid = true;
+        fieldIds.forEach(function (id) { if (!validateField(id)) valid = false; });
+        return valid;
+      }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        wasSubmitted = true;
+        const valid = validateAll();
+        output.classList.toggle('d-none', !valid);
+        if (!valid) {
+          form.querySelector('.is-invalid').focus();
+        }
+      });
+      fieldIds.forEach(function (id) {
+        const field = document.getElementById(id);
+        field.addEventListener(id === 'country' ? 'change' : 'input', function () {
+          if (wasSubmitted) {
+            validateField(id);
+            output.classList.add('d-none');
+          }
+        });
+      });
+      form.addEventListener('reset', function () {
+        wasSubmitted = false;
+        fieldIds.forEach(function (id) {
+          document.getElementById(id).classList.remove('is-valid', 'is-invalid');
+        });
+        output.classList.add('d-none');
+      });
+    }());
+  </script>
+</body>
+</html>

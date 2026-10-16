@@ -1,0 +1,38 @@
+/* Custom styles are used only by Exercises 4 and 5. Exercises 2 and 3 use Bootstrap classes exclusively. */
+:root { --charcoal: #343a40; }
+body { background: #fff; }
+.navbar { min-height: 54px; }
+.navbar .navbar-brand { font-size: 1.18rem; }
+.navbar .nav-link { font-size: .92rem; }
+.navbar-toggler { border: 1px solid rgba(255,255,255,.48); padding: .35rem .6rem; }
+.navbar-toggler-lines { display: inline-block; line-height: 1.18; font-size: 1.3rem; color: rgba(255,255,255,.78); }
+.sample-image { position: relative; width: 100%; background: #cdcdcd; color: #929292; display: flex; align-items: center; justify-content: center; overflow: hidden; font-weight: 300; line-height: 1; user-select: none; }
+.sample-image.wide-business { aspect-ratio: 9 / 4; font-size: clamp(2.2rem, 5vw, 4.5rem); }
+.sample-image.wide-shop { aspect-ratio: 18 / 7; font-size: clamp(2.3rem, 5vw, 4.5rem); }
+.sample-image.product-img { aspect-ratio: 7 / 4; font-size: clamp(1.2rem, 2.1vw, 2rem); }
+.site-footer { margin-top: 1.6rem; background: var(--charcoal); color: white; text-align: center; padding: 2rem 0; font-size: .85rem; }
+.business-hero h1 { font-size: 2.3rem; line-height: 1.12; }
+.business-hero p { line-height: 1.5; }
+.business-callout { background: #89939c; color: white; text-align: center; border-radius: .2rem; padding: 1.15rem; }
+.business-card { height: 100%; }
+.business-card .card-footer { background: #f7f7f7; }
+.shop-title { font-size: 1.9rem; }
+.product-price { font-weight: 600; }
+.product-description { line-height: 1.5; }
+.product-rating { color: #828b92; font-size: 1.05rem; letter-spacing: .035em; }
+.carousel-wrap { position: relative; }
+.carousel-slide { display: none; }
+.carousel-slide.active { display: block; }
+.carousel-nav { position: absolute; top: 0; bottom: 0; width: 14%; display: flex; align-items: center; justify-content: center; background: transparent; color: white; border: 0; cursor: pointer; font-size: 2.6rem; opacity: .7; z-index: 2; }
+.carousel-nav:hover, .carousel-nav:focus { opacity: 1; background: rgba(0,0,0,.06); }
+.carousel-nav.prev { left: 0; }
+.carousel-nav.next { right: 0; }
+.carousel-indicators-simple { position: absolute; display: flex; gap: .45rem; bottom: 11px; left: 50%; transform: translateX(-50%); z-index: 3; }
+.carousel-indicators-simple button { cursor: pointer; width: 24px; height: 3px; border: 0; padding: 0; background: rgba(255,255,255,.55); }
+.carousel-indicators-simple button.active { background: #fff; }
+@media (max-width: 575.98px) {
+  .business-hero h1 { font-size: 1.8rem; }
+  .sample-image.wide-business { font-size: 2.1rem; }
+  .sample-image.wide-shop { font-size: 2rem; }
+  .sample-image.product-img { font-size: 2.7rem; }
+}

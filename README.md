@@ -1,20 +1,13 @@
-# Lab 5 — Web Programming and Applications
+# Lab 04 - Web Programming and Applications
 
-Completed all six exercises from Lab05-2024.pdf using vanilla HTML/CSS/JavaScript.
+Lab04.pdf: five Bootstrap 4 exercises based on the lecturer's reference and demo videos.
 
-## Setup
-1. Install Node.js 20 or newer.
-2. In this folder run `npm install`.
-3. Run `npm run server` in terminal 1 (REST API at http://localhost:3000/students).
-4. Run `npm run web` in terminal 2, then open http://localhost:5500.
-5. Open index.html and choose any exercise. Exercise 1 requires both servers; the others run client-side.
+Open `index.html` directly in a browser. The `vendor/bootstrap.min.css` file is bundled locally, so no installation, server, or Internet is required.
 
-## Exercises
-- Ex 1: Fetch REST API for reading, adding, toggling and deleting students, persisted in database.json by json-server.
-- Ex 2: Live password-strength checks with green/red criteria.
-- Ex 3: Dynamically generated random colors; hover preview and 3-second disappearing selection message.
-- Ex 4: Shopping cart with add, update quantity, remove, and computed totals.
-- Ex 5: Instant multi-column search, accent-insensitive Vietnamese matching.
-- Ex 6: Randomized drag-and-drop 10-piece image puzzle with 90-degree rotation and success validation.
+- Exercise 1: responsive staff cards with Bootstrap Grid (2/3/4/6 columns at breakpoints).
+- Exercise 2: login form using only Bootstrap 4 classes (no custom CSS).
+- Exercise 3: form validation with Bootstrap 4 classes and vanilla JavaScript (no custom CSS).
+- Exercise 4: small business website, responsive navbar and cards.
+- Exercise 5: responsive shop page, navigation, carousel, and six product cards.
 
-Note: Product photos on Exercise 5 are remote URLs from the provided starter and may need an internet connection. Puzzle GIFs are included locally.
+The full deliverable ZIP additionally includes the Playwright smoke-test script and report (60/60 checks passed). For tests, the restricted Chromium environment injects equivalent document resources rather than navigating to localhost.
